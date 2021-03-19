@@ -24,7 +24,7 @@
 {{ else }}
 
 <article>
-  <header><h1>{{ .Title | default "Posts" | humanize }}</h1></header>
+  <header><h1>{{- if .IsHome }}{{ .Site.Params.listTitle }}{{- else }}{{ .Title | default .Site.Params.listTitle }}{{- end }}</h1></header>
   <ul class="archive">
     {{- range $Pages }}
     <li>
