@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode | default "en" }}">
-<title>{{ if .Title }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
+<title>{{- if .IsHome }}{{ .Site.Title }}{{- else }}{{ .Title }} | {{ .Site.Title }}{{- end }}</title>
 <meta charset="utf-8">
 {{ hugo.Generator }}
-{{- if or .Description .Site.Params.description }}
-<meta name="description" content="{{ .Description | default .Site.Params.description }}">
+{{- if .IsHome }}
+<meta name="description" content="{{ .Site.Params.description }}">
+{{- else if .Description }}
+<meta name="description" content="{{ .Description }}">
 {{- end }}
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{{ .Site.BaseURL }}css/{{ if .Site.Params.minimal }}minimal.css{{ else }}index.css{{ end }}">
+<link rel="stylesheet" href="{{ .Site.Params.Root }}css/{{ if .Site.Params.minimal }}minimal.css{{ else }}index.css{{ end }}">
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="alternate" type="application/rss+xml" href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" title="{{ .Site.Title }}">
 {{- if or .Params.math .Site.Params.math }}
-<link rel="stylesheet" href="{{ .Site.BaseURL }}katex/katex.min.css">
-<script defer src="{{ .Site.BaseURL }}katex/katex.min.js"></script>
-<script defer src="{{ .Site.BaseURL }}katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
+<link rel="stylesheet" href="{{ .Site.Params.Root }}katex/katex.min.css">
+<script defer src="{{ .Site.Params.Root }}katex/katex.min.js"></script>
+<script defer src="{{ .Site.Params.Root }}katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body)"></script>
 {{- end }}
 
 <header>
